@@ -35,3 +35,13 @@ jobs:
       with:
         name: kandianshi-debug-apk
         path: app/build/outputs/apk/debug/*.apk
+
+    - name: Create Release with APK
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: latest
+        name: 最新构建
+        body: "自动构建 - {{ date '::short' }}"
+        files: app/build/outputs/apk/debug/*.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
