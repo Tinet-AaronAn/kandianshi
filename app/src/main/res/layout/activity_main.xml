@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主界面 - 电视剧列表，大卡片，横屏 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1a1a2e"
+    android:padding="24dp">
+
+    <!-- 标题栏：标题 + 同步按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="📺 看电视"
+            android:textSize="42sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btn_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="180dp"
+            android:minHeight="64dp"
+            android:text="📡 同步数据"
+            android:textSize="24sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/btn_sync_bg"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp" />
+
+    </LinearLayout>
+
+    <!-- 电视剧网格 - 横屏3列 -->
+    <GridView
+        android:id="@+id/grid_series"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="3"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center" />
+
+    <!-- 空状态提示 -->
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="还没放电视剧哦"
+        android:textSize="28sp"
+        android:textColor="#aaaaaa"
+        android:gravity="center"
+        android:visibility="gone" />
+
+</LinearLayout>

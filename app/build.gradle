@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.cantv'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.cantv"
+        minSdk 21
+        targetSdk 36
+        versionCode 3
+        versionName "1.2"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // APK输出文件名
+        setProperty("archivesBaseName", "kandianshi")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // 允许使用旧版命名空间
+    lint {
+        abortOnError false
+    }
+}
+
+// AndroidX 测试依赖
+dependencies {
+    // 单元测试
+    testImplementation 'junit:junit:4.13.2'
+
+    // 仪器测试
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+}

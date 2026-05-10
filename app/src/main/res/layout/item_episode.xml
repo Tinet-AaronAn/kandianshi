@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 集数按钮 - 大按钮，好按 -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_episode"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="80dp"
+    android:textSize="28sp"
+    android:textColor="#ffffff"
+    android:textStyle="bold"
+    android:gravity="center"
+    android:background="@drawable/btn_episode_bg"
+    android:padding="12dp" />

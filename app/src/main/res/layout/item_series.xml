@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 电视剧卡片 - 大卡片，大图，大字 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/card_bg"
+    android:padding="8dp"
+    android:gravity="center">
+
+    <!-- 封面图 -->
+    <ImageView
+        android:id="@+id/iv_cover"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_cover"
+        android:background="#2a2a4a" />
+
+    <!-- 剧名 -->
+    <TextView
+        android:id="@+id/tv_series_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="2dp"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- 集数 -->
+    <TextView
+        android:id="@+id/tv_episode_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#aaaaaa"
+        android:gravity="center"
+        android:paddingBottom="4dp" />
+
+</LinearLayout>

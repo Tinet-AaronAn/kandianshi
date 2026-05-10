@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 启动器图标 - 电视机 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- 背景 -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M0,0h48v48h-48z" />
+    <!-- 电视外框 -->
+    <path
+        android:fillColor="#ff6b6b"
+        android:pathData="M6,10h36v24h-36z" />
+    <!-- 屏幕 -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M9,13h30v18h-30z" />
+    <!-- 播放三角 -->
+    <path
+        android:fillColor="#ff6b6b"
+        android:pathData="M19,17l12,7l-12,7z" />
+    <!-- 底座 -->
+    <path
+        android:fillColor="#ff6b6b"
+        android:pathData="M16,36h16v3h-16z" />
+</vector>

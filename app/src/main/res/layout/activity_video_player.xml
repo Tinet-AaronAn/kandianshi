@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 视频播放器 - 适老化大按钮控制栏 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/player_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- 视频画面 -->
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+    <!-- 透明覆盖层 - 接收点击事件（VideoView 的 onClick 在很多设备上不触发） -->
+    <View
+        android:id="@+id/touch_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+    <!-- 顶部标题 -->
+    <TextView
+        android:id="@+id/tv_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="#ffffff"
+        android:background="#80000000"
+        android:padding="16dp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <!-- 底部控制栏 -->
+    <LinearLayout
+        android:id="@+id/controls_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="#cc000000"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <!-- 进度条 -->
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="36dp"
+            android:thumbTint="#ff6b6b"
+            android:progressTint="#ff6b6b"
+            android:progressBackgroundTint="#555555" />
+
+        <!-- 时间 + 按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp">
+
+            <!-- 后退30秒 - 大按钮 -->
+            <ImageView
+                android:id="@+id/btn_prev"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_rewind"
+                android:padding="12dp"
+                android:background="@drawable/btn_control_bg"
+                android:contentDescription="后退30秒" />
+
+            <!-- 播放/暂停 - 最大按钮 -->
+            <ImageView
+                android:id="@+id/btn_play_pause"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_pause"
+                android:padding="12dp"
+                android:background="@drawable/btn_control_bg"
+                android:contentDescription="播放暂停" />
+
+            <!-- 前进30秒 - 大按钮 -->
+            <ImageView
+                android:id="@+id/btn_next"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_forward"
+                android:padding="12dp"
+                android:background="@drawable/btn_control_bg"
+                android:contentDescription="前进30秒" />
+
+            <!-- 时间显示 -->
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="00:00 / 00:00"
+                android:textSize="24sp"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:paddingStart="16dp" />
+
+            <!-- 返回按钮 -->
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_back"
+                android:padding="12dp"
+                android:background="@drawable/btn_control_bg"
+                android:contentDescription="返回" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

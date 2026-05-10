@@ -1,0 +1,20 @@
+# Gradle
+.gradle/
+build/
+app/build/
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Local config
+local.properties
+
+# Test screenshots
+test_*.png
+
+# Video files (too large for GitHub)
+videos/
