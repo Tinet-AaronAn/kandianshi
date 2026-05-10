@@ -19,8 +19,31 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
+    - name: Cache Gradle wrapper
+      uses: actions/cache@v4
+      with:
+        path: ~/.gradle/wrapper/dists
+        key: gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+    - name: Pre-download Gradle distribution
+      run: |
+        DIST_DIR=~/.gradle/wrapper/dists
+        if [ ! -d "$DIST_DIR/gradle-8.11.1-bin" ]; then
+          echo "Downloading Gradle 8.11.1 via wget..."
+          mkdir -p /tmp/gradle-download
+          wget -q https://services.gradle.org/distributions/gradle-8.11.1-bin.zip -O /tmp/gradle-8.11.1-bin.zip
+          HASH=$(echo -n "gradle-8.11.1-bin.zip" | md5sum | cut -c1-32)
+          DEST="$DIST_DIR/gradle-8.11.1-bin/$HASH"
+          mkdir -p "$DEST"
+          cp /tmp/gradle-8.11.1-bin.zip "$DEST/"
+          mkdir -p "$DEST/gradle-8.11.1"
+          cd "$DEST"
+          unzip -q gradle-8.11.1-bin.zip -d .
+          touch "$HASH.ok"
+          echo "Gradle pre-downloaded to $DEST"
+        else
+          echo "Gradle already cached"
+        fi
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
