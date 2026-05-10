@@ -2,10 +2,12 @@ package com.cantv.model;
 
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -181,8 +183,11 @@ public class SyncManager {
             }
             Log.i(TAG, "COS发现 " + seriesNames.size() + " 部剧，共 " + remoteFiles.size() + " 集");
 
-            // 3. 与本地对比，生成下载任务
+            // 3. 清理上次同步可能残留的临时文件和空目录
             File rootDir = VideoScanner.getRootDir();
+            cleanupStaleFiles(rootDir);
+
+            // 4. 与本地对比，生成下载任务
             List<DownloadTask> tasks = new ArrayList<>();
 
             for (RemoteFile rf : remoteFiles) {
@@ -230,7 +235,7 @@ public class SyncManager {
                 return;
             }
 
-            // 4. 逐个下载
+            // 5. 逐个下载
             for (DownloadTask task : tasks) {
                 if (cancelled) {
                     result.cancelled = true;
@@ -269,6 +274,41 @@ public class SyncManager {
     }
 
     /**
+     * 清理残留的 .downloading 临时文件和空目录
+     */
+    private void cleanupStaleFiles(File rootDir) {
+        if (!rootDir.exists()) return;
+
+        File[] folders = rootDir.listFiles(File::isDirectory);
+        if (folders == null) return;
+
+        for (File folder : folders) {
+            // 清理 .downloading 临时文件
+            File[] tempFiles = folder.listFiles((dir, name) -> name.endsWith(".downloading"));
+            if (tempFiles != null) {
+                for (File temp : tempFiles) {
+                    temp.delete();
+                    Log.i(TAG, "清理临时文件: " + temp.getAbsolutePath());
+                }
+            }
+
+            // 清理空目录（0个视频文件的目录可能是乱码残留）
+            File[] videos = folder.listFiles((dir, name) -> isVideoFile(name));
+            if (videos == null || videos.length == 0) {
+                // 删除目录下所有剩余文件（如 .DS_Store 等）
+                File[] remaining = folder.listFiles();
+                if (remaining != null) {
+                    for (File f : remaining) {
+                        f.delete();
+                    }
+                }
+                folder.delete();
+                Log.i(TAG, "清理空目录: " + folder.getAbsolutePath());
+            }
+        }
+    }
+
+    /**
      * HTTP GET 请求，返回响应体字符串
      */
     private String httpGet(String urlStr) {
@@ -286,14 +326,14 @@ public class SyncManager {
                 return null;
             }
 
-            InputStream is = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(
+                new InputStreamReader(conn.getInputStream(), "UTF-8"));
             StringBuilder sb = new StringBuilder();
-            byte[] buf = new byte[4096];
-            int len;
-            while ((len = is.read(buf)) != -1) {
-                sb.append(new String(buf, 0, len, "UTF-8"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
             }
-            is.close();
+            reader.close();
             return sb.toString();
         } catch (Exception e) {
             Log.e(TAG, "HTTP GET异常: " + urlStr, e);
