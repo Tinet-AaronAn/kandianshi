@@ -366,10 +366,12 @@ public class VideoPlayerActivity extends Activity {
                     btnPlayPause.setImageResource(R.drawable.ic_pause);
                 } else {
                     // duration=0 说明player已释放，需要重新加载
+                    hasSeekToSavedPosition = false; // 重置标记，让onPrepared恢复进度
                     startPlayback();
                 }
             } catch (Exception e) {
                 // IllegalStateException: player已被释放
+                hasSeekToSavedPosition = false; // 重置标记，让onPrepared恢复进度
                 startPlayback();
             }
         }
